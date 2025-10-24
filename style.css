@@ -1,0 +1,144 @@
+/* ===== ESTILO GERAL ===== */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 100%;
+    min-height: 100vh;
+    color: #000000;
+}
+
+/* ===== NAVBAR ===== */
+.header {
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 20px 50px;
+    color: #ffffff;
+    background-color: rgb(39, 39, 39);
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+nav ul{
+    display: flex;
+}
+
+nav ul li {
+    list-style: none;
+    margin: 0 15px;
+    padding: 0 10px;
+}
+
+nav ul li:hover {
+    text-decoration: underline;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #ffffff;
+    letter-spacing: 1px;
+}
+
+/* ===== ÚLTIMAS NOTÍCIAS ===== */
+.topHeadlines {
+    padding: 100px 50px 50px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+}
+
+.topHeadlines .left {
+    padding: 10px 30px;
+    /* background-color: #999; */
+}
+
+.topHeadlines .left > .title { /* > Indica que é filho direto de left */
+    font-size: 20px;
+    padding: 15px;
+    text-align: center;
+}
+
+.topHeadlines .left .img {
+    width: 100%;
+    height: 400px;
+    background-color: #a04;
+}
+
+.topHeadlines .left .text {
+    padding: 20px 15px 10px;
+}
+
+.topHeadlines .left .text .title h2 {
+    font-size: 20px;
+    letter-spacing: 1px;
+    display: inline;
+    cursor: pointer;
+}
+
+.topHeadlines .left .text .title h2:hover {
+    text-decoration: underline;
+}
+
+.topHeadlines .left .text .description {
+    font-size: 15px;
+    margin-top: 10px;
+    color: #333333;
+    letter-spacing: 1px;
+}
+
+/* ===== NOTÍCIAS POPULARES ===== */
+.topHeadlines .right {
+    padding: 10px;
+    width: 1005;
+    height: 500px;
+    /* background-color: #999; */
+}
+
+.topHeadlines .right > .title {
+    font-size: 20px;
+    padding: 15px;
+    text-align: center;
+}
+
+.topHeadlines .right .topNews {
+    padding: 7px;
+    height: 85%;
+    border: 1px solid #000000;
+    border-radius: 4px;
+}
+
+.topHeadlines .right .topNews .news {
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+}
+
+.topHeadlines .right .topNews .news .img {
+    width: 170px;
+    height: 120px;
+    background-color: #a04;
+}
+
+.topHeadlines .right .topNews .news .text {
+    margin-inline: 10px;
+}
+
+.topHeadlines .right .topNews .news .text .title {
+    cursor: pointer;
+}
+
+.topHeadlines .right .topNews .news .text .title:hover {
+    text-decoration: underline;
+}
