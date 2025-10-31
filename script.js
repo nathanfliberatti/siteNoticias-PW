@@ -1,236 +1,116 @@
-let breakingImg = document.querySelector("#breakingImg");
-let breakingNews_title = document.querySelector("#breakingNews .title");
-let breakingNews_desc = document.querySelector("#breakingNews .description");
-
-let topNews = document.querySelector(".topNews");
-
-let politicsNews = document.querySelector("#politicsNews .newsBox");
-let economyNews = document.querySelector("#economyNews .newsBox");
-let sportsNews = document.querySelector("#sportsNews .newsBox");
-let internationalNews = document.querySelector("#internationalNews .newsBox");
-let techNews = document.querySelector("#techNews .newsBox");
+//Seletores principais =====
+const breakingImg = document.querySelector("#breakingImg");
+const breakingNews_title = document.querySelector("#breakingNews .title");
+const breakingNews_desc = document.querySelector("#breakingNews .description");
 
 const apiKey = "pub_f98d6b9928a344c2ae99cdccb48920d5";
 
-const fetchData = async (category, size) => {
-    const url = category
-        ? `https://newsdata.io/api/1/news?country=br&size=${size}&category=${category}&apikey=${apiKey}`
-        : `https://newsdata.io/api/1/news?country=br&size=10&apikey=${apiKey}`;
-    const data = await fetch(url);
-    const response = await data.json();
+// Imagem default caso a notícia não tenha. Mesmo adicionando filtro 
+// de notícias apenas com imagens, o filtro não funciona, acredito que seja 
+// por conta de o plano da API ser gratuito
+const defaultImage = "https://ito-group.com/wp-content/uploads/2025/04/no-image.jpg";
 
-    console.log(response); //TIRAR DEPOIS DE TESTAR
-    return response.results;
-}
-fetchData();
+// Configuração das seções
+//Mesmo direcionando cada categoria para o seu endpoint especificado na 
+//documentação da API, elas acabam se misturando um pouco
+const sections = {
+  top: { element: document.querySelector(".topNews"), category: "", minCount: 10, cardClass: "news" },
+  politics: { element: document.querySelector("#politicsNews .newsBox"), category: "politics", minCount: 5, cardClass: "newsCard" },
+  economy: { element: document.querySelector("#economyNews .newsBox"), category: "business", minCount: 5, cardClass: "newsCard" },
+  sports: { element: document.querySelector("#sportsNews .newsBox"), category: "sports", minCount: 5, cardClass: "newsCard" },
+  international: { element: document.querySelector("#internationalNews .newsBox"), category: "world", minCount: 5, cardClass: "newsCard" },
+  tech: { element: document.querySelector("#techNews .newsBox"), category: "technology", minCount: 5, cardClass: "newsCard" },
+};
 
-// Adicionando últimas notícias
-const add_breaking_news = (data) => {
-    breakingImg.innerHTML = `<img src="${data[0].image_url}" alt="Imagem">`;
-    breakingNews_title.innerHTML = `<a href="${data[0].link}" target="_blank"><h2>${data[0].title}</h2></a>`;
-    breakingNews_desc.innerHTML = `${data[0].description}`;
-}
-fetchData().then(add_breaking_news);
+// Função que busca múltiplas páginas até preencher as notícias
+const fetchValidNews = async (category = "", minCount = 5) => {
+  let url = category
+    ? `https://newsdata.io/api/1/news?country=br&language=pt&size=10&category=${category}&apikey=${apiKey}`
+    : `https://newsdata.io/api/1/news?country=br&language=pt&size=10&apikey=${apiKey}`;
 
+  let validNews = [];
+  let nextPage = null;
 
-// Adicionando notícias populares
-const add_topNews = (data) => {
-    let html = '';
-    let title = '';
-    const uniqueLinks = new Set(); //Estava pegando notícias repetidas, isso evita
+  while (validNews.length < minCount && url) {
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
 
-    data.forEach((element) => {
-        if (!element.link || uniqueLinks.has(element.link) ||
-            !element.image_url || !element.title) {
-            return; // Pula esta iteração se o link for nulo ou já foi adicionado, ou se não tiver imagem ou título
-        }
-        uniqueLinks.add(element.link);
+      if (!data.results) break;
 
-        if (element.title.length < 100) {
-            title = element.title;
-        }
-        else {
-            // corta título se for muito longo
-            title = element.title.slice(0, 100) + '...';
-        }
+      // Filtra apenas notícias com título e link válidos
+      const filtered = data.results.filter(
+        (el) => el.link && el.title
+      );
 
-        html += `<div class="news">
-                    <div class="img">
-                        <img src="${element.image_url}" alt="Imagem">
-                    </div>
-                    <div class="text">
-                        <div class="title">
-                            <a href="${element.link}" target="_blank"><p>${title}</p></a>
-                        </div>
-                    </div>
-                </div>`
-    });
-    topNews.innerHTML = html;
-}
-fetchData('', 10).then(add_topNews);
+      // O operador "..." espalha os itens do array, adicionando cada notícia individualmente
+      validNews.push(...filtered);
 
+      // Paginação
+      nextPage = data.nextPage;
+      url = nextPage
+        ? `https://newsdata.io/api/1/news?country=br&language=pt&size=10${category ? `&category=${category}` : ""}&apikey=${apiKey}&page=${nextPage}`
+        : null;
 
-// Adicionando notícias de política
-const add_politicsNews = (data) => {
-    let html = '';
-    let title = '';
-    const uniqueLinks = new Set();
+    } catch (error) {
+      console.error("Erro ao buscar notícias:", error);
+      break;
+    }
+  }
 
-    data.forEach((element) => {
-        if (!element.link || uniqueLinks.has(element.link) ||
-            !element.image_url || !element.title) {
-        }
-        uniqueLinks.add(element.link);
+  return validNews.slice(0, minCount);
+};
 
-        if (element.title.length < 100) {
-            title = element.title;
-        } else {
-            title = element.title.slice(0, 100) + '...';
-        }
+// Cria o HTML genérico para os cards
+const createNewsHTML = (data, cardClass) => {
+  const uniqueLinks = new Set(); //Estava pegando notícias repetidas, isso evita, 
+  // mas ainda assim está repetindo
+  return data
+    .filter((e) => e.link && e.title && !uniqueLinks.has(e.link) && uniqueLinks.add(e.link))
+    .map((e) => {
+      const img = e.image_url || defaultImage;
+      const title = e.title.length < 100 ? e.title : e.title.slice(0, 100) + "...";
+      return `
+        <div class="${cardClass}">
+          <div class="img"><img src="${img}" alt="Imagem"></div>
+          <div class="text">
+            <div class="title">
+              <a href="${e.link}" target="_blank"><p>${title}</p></a>
+            </div>
+          </div>
+        </div>`;
+    })
+    .join("");
+};
 
-        html += `<div class="newsCard">
-                    <div class="img">
-                        <img src="${element.image_url}" alt="Imagem">
-                    </div>
-                    <div class="text">
-                        <div class="title">
-                            <a href="${element.link}" target="_blank"><p>${title}</p></a>
-                        </div>
-                    </div>
-                </div>`
-    });
-    politicsNews.innerHTML = html;
-}
-fetchData('politics', 5).then(add_politicsNews);
+// Função para carregar cada seção dinamicamente
+const loadSection = async ({ element, category, minCount, cardClass }) => {
+  const data = await fetchValidNews(category, minCount);
+  element.innerHTML = createNewsHTML(data, cardClass);
+};
 
-// Adicionando notícias de economia
-const add_economyNews = (data) => {
-    let html = '';
-    let title = '';
-    const uniqueLinks = new Set();
+// Últimas notícias
+const addBreakingNews = async () => {
+  const data = await fetchValidNews("", 1);
+  if (!data[0]) return;
 
-    data.forEach((element) => {
-        if (!element.link || uniqueLinks.has(element.link) ||
-            !element.image_url || !element.title) {
-        }
-        uniqueLinks.add(element.link);
+  // Desestruturação de objetos:
+  // Extrai diretamente as propriedades 'image_url', 'link', 'title' e 'description'
+  // do primeiro objeto do array 'data', criando variáveis individuais.
+  // A desestruturação é especialmente útil quando trabalhamos com objetos complexos ou recebidos 
+  // de APIs, permitindo manipular os dados de forma direta e concisa.
+  const { image_url, link, title, description } = data[0];
+  const img = image_url || defaultImage;
 
-        if (element.title.length < 100) {
-            title = element.title;
-        } else {
-            title = element.title.slice(0, 100) + '...';
-        }
+  breakingImg.innerHTML = `<img src="${img}" alt="Imagem">`;
+  breakingNews_title.innerHTML = `<a href="${link}" target="_blank"><h2>${title}</h2></a>`;
+  breakingNews_desc.innerHTML = description || "Sem descrição disponível.";
+};
 
-        html += `<div class="newsCard">
-                    <div class="img">
-                        <img src="${element.image_url}" alt="Imagem">
-                    </div>
-                    <div class="text">
-                        <div class="title">
-                            <a href="${element.link}" target="_blank"><p>${title}</p></a>
-                        </div>
-                    </div>
-                </div>`
-    });
-    economyNews.innerHTML = html;
-}
-fetchData('business', 5).then(add_economyNews);
-
-// Adicionando notícias de esportes
-const add_sportsNews = (data) => {
-    let html = '';
-    let title = '';
-    const uniqueLinks = new Set();
-
-    data.forEach((element) => {
-        if (!element.link || uniqueLinks.has(element.link) ||
-            !element.image_url || !element.title) {
-        }
-        uniqueLinks.add(element.link);
-
-        if (element.title.length < 100) {
-            title = element.title;
-        } else {
-            title = element.title.slice(0, 100) + '...';
-        }
-
-        html += `<div class="newsCard">
-                    <div class="img">
-                        <img src="${element.image_url}" alt="Imagem">
-                    </div>
-                    <div class="text">
-                        <div class="title">
-                            <a href="${element.link}" target="_blank"><p>${title}</p></a>
-                        </div>
-                    </div>
-                </div>`
-    });
-    sportsNews.innerHTML = html;
-}
-fetchData('sports', 5).then(add_sportsNews);
-
-// Adicionando notícias internacionais
-const add_internationalNews = (data) => {
-    let html = '';
-    let title = '';
-    const uniqueLinks = new Set();
-
-    data.forEach((element) => {
-        if (!element.link || uniqueLinks.has(element.link) ||
-            !element.image_url || !element.title) {
-        }
-        uniqueLinks.add(element.link);
-
-        if (element.title.length < 100) {
-            title = element.title;
-        } else {
-            title = element.title.slice(0, 100) + '...';
-        }
-
-        html += `<div class="newsCard">
-                    <div class="img">
-                        <img src="${element.image_url}" alt="Imagem">
-                    </div>
-                    <div class="text">
-                        <div class="title">
-                            <a href="${element.link}" target="_blank"><p>${title}</p></a>
-                        </div>
-                    </div>
-                </div>`
-    });
-    internationalNews.innerHTML = html;
-}
-fetchData('world', 5).then(add_internationalNews);
-
-// Adicionando notícias de tecnologia
-const add_techNews = (data) => {
-    let html = '';
-    let title = '';
-    const uniqueLinks = new Set();
-
-    data.forEach((element) => {
-        if (!element.link || uniqueLinks.has(element.link) ||
-            !element.image_url || !element.title) {
-        }
-        uniqueLinks.add(element.link);
-
-        if (element.title.length < 100) {
-            title = element.title;
-        } else {
-            title = element.title.slice(0, 100) + '...';
-        }
-
-        html += `<div class="newsCard">
-                    <div class="img">
-                        <img src="${element.image_url}" alt="Imagem">
-                    </div>
-                    <div class="text">
-                        <div class="title">
-                            <a href="${element.link}" target="_blank"><p>${title}</p></a>
-                        </div>
-                    </div>
-                </div>`
-    });
-    techNews.innerHTML = html;
-}
-fetchData('technology', 5).then(add_techNews);
+//Execução principal
+(async () => {
+  await addBreakingNews();
+  for (const section of Object.values(sections)) {
+    await loadSection(section);
+  }
+})(); 
