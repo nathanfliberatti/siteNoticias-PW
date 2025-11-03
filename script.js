@@ -11,8 +11,8 @@ const apiKey = "pub_f98d6b9928a344c2ae99cdccb48920d5";
 const defaultImage = "https://ito-group.com/wp-content/uploads/2025/04/no-image.jpg";
 
 // Configuração das seções
-//Mesmo direcionando cada categoria para o seu endpoint especificado na 
-//documentação da API, elas acabam se misturando um pouco
+// Mesmo direcionando cada categoria para o seu endpoint especificado na 
+// documentação da API, elas acabam se misturando um pouco
 const sections = {
   top: { element: document.querySelector(".topNews"), category: "", minCount: 10, cardClass: "news" },
   politics: { element: document.querySelector("#politicsNews .newsBox"), category: "politics", minCount: 5, cardClass: "newsCard" },
