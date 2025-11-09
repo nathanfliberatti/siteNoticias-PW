@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.css"
+        integrity="sha512-NhLySQDkiKSKnT+R795uaHWRQ7D3VuIvgeOLCK8cWq4w5fq4sWF90gj8eURpTqn/f1mFzqClpOz8JPlgVTLfFw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tela de Cadastro | Atualiza+</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="cadastro-page">
+        <div class="cadastro-card">
+            <h1><i class="fa-solid fa-user-plus"></i> Criar conta</h1>
+            <p>Preencha os campos abaixo para criar seu cadastro.</p>
+
+            <form onsubmit="event.preventDefault(); salvarCadastro();">
+                <label for="nome">Nome completo</label>
+                <input id="nome" type="text" placeholder="Seu nome completo" required>
+
+                <label for="email">E-mail</label>
+                <input id="email" type="email" placeholder="seu@email.com" required>
+
+                <label for="senha">Senha</label>
+                <input id="senha" type="password" minlength="6" placeholder="Mínimo de 6 caracteres" required>
+
+                <button type="submit">Cadastrar</button>
+            </form>
+
+            <p id="mensagem" class="msg"></p>
+
+            <div class="cadastro-footer">
+                <p>Já tem uma conta? <a href="login.html">Entrar</a></p>
+                <a href="index.html"><i class="fa-solid fa-arrow-left"></i> Voltar ao site</a>
+            </div>
+        </div>
+    </div>
+    <script src="js/app.js"></script>
+</body>
+</html>

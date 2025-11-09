@@ -1,9 +1,13 @@
+/* ===== LANDING PAGE ===== */
+
+/* ===== API DE NOTÍCIAS ===== */
+
 //Seletores principais =====
 const breakingImg = document.querySelector("#breakingImg");
 const breakingNews_title = document.querySelector("#breakingNews .title");
 const breakingNews_desc = document.querySelector("#breakingNews .description");
 
-const apiKey = "pub_5ce7262952ae41e4906acdbdd3ba929b";
+const apiKey = "pub_14fd039d51f24906bdc96897d125b7df";
 
 // Imagem default caso a notícia não tenha. Mesmo adicionando filtro 
 // de notícias apenas com imagens, o filtro não funciona, acredito que seja 
@@ -21,16 +25,6 @@ const sections = {
   international: { element: document.querySelector("#internationalNews .newsBox"), category: "world", minCount: 5, cardClass: "newsCard" },
   tech: { element: document.querySelector("#techNews .newsBox"), category: "technology", minCount: 5, cardClass: "newsCard" },
 };
-
-let toggleMenu = document.querySelector(".bar");
-let menu = document.querySelector("nav ul");
-
-const toggle = (e) => {
-  toggleMenu.classList.toggle('active');
-  menu.classList.toggle('activeMenu');
-}
-
-toggleMenu.addEventListener('click', toggle);
 
 // Função que busca múltiplas páginas até preencher as notícias
 const fetchValidNews = async (category = "", minCount = 5) => {
@@ -118,9 +112,25 @@ const addBreakingNews = async () => {
 };
 
 //Execução principal
-(async () => {
-  await addBreakingNews();
-  for (const section of Object.values(sections)) {
-    await loadSection(section);
+
+  (async () => {
+    try {
+    await addBreakingNews();
+    for (const section of Object.values(sections)) {
+      await loadSection(section);
+    }
+  } catch (error) {
+    console.error("Erro ao carregar a API de Notícias: ", error);
   }
-})(); 
+  })();
+
+//Menu hambúrguer
+let toggleMenu = document.querySelector(".bar");
+let menu = document.querySelector("nav ul");
+
+const toggle = (e) => {
+  toggleMenu.classList.toggle('active');
+  menu.classList.toggle('activeMenu');
+}
+
+toggleMenu.addEventListener('click', toggle);

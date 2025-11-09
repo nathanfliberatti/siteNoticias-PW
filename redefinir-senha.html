@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redefinir Senha</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body class="reset-page">
+    <div class="reset-container">
+        <h2>Redefinir Senha</h2>
+        <p>Informe o e-mail cadastrado para redefinir sua senha.</p>
+
+        <form id="resetForm" onsubmit="event.preventDefault(); salvarNovaSenha();">
+            <input type="email" id="resetEmail" placeholder="Seu e-mail" required />
+            <button type="button" id="verifyEmailBtn" onclick="verificarEmail()">Verificar e-mail</button>
+
+            <div id="resetFields" class="hidden">
+                <input type="password" id="newPassword" placeholder="Nova senha" required />
+                <input type="password" id="confirmPassword" placeholder="Confirme a nova senha" required />
+                <button type="submit">Salvar nova senha</button>
+            </div>
+        </form>
+        <p id="resetMessage" class="msg"></p>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

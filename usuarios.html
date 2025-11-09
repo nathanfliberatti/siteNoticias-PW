@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Usuários Cadastrados | Atualiza+</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="usuarios-page">
+  <div class="usuarios-container">
+    <h1>Usuários Cadastrados</h1>
+    <p>Lista de contas registradas no sistema (dados salvos em LocalStorage).</p>
+
+    <div class="usuarios-acoes">
+      <button onclick="voltarPagina()">⬅ Voltar</button>
+      <button onclick="sairSessao()">Sair da Sessão</button>
+      <button onclick="limparUsuarios()">🗑 Limpar Todos</button>
+    </div>
+
+    <div id="lista-vazia" class="vazio">
+      <p>Nenhum usuário cadastrado.</p>
+    </div>
+
+    <div id="lista" class="usuarios-lista"></div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

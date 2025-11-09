@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.css"
+        integrity="sha512-NhLySQDkiKSKnT+R795uaHWRQ7D3VuIvgeOLCK8cWq4w5fq4sWF90gj8eURpTqn/f1mFzqClpOz8JPlgVTLfFw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <title>Tela de Login | Atualiza+</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <div class="login-page">
+    <div class="login-card">
+      <h1><i class="fa-solid fa-user"></i> Entrar</h1>
+      <p>Faça login para acessar sua conta</p>
+
+      <form onsubmit="event.preventDefault(); entrar();">
+        <label for="email">E-mail</label>
+        <input id="email" type="email" placeholder="seu@email.com" required>
+
+        <label for="senha">Senha</label>
+        <input id="senha" type="password" placeholder="••••••••" required>
+
+        <button type="submit">Entrar</button>
+      </form>
+
+      <!-- mensagens de sucesso/erro -->
+      <p id="mensagem" class="msg"></p>
+
+      <div class="recovery-link">
+        <a href="#" onclick="irParaRedefinicao()">Esqueci minha senha</a>
+      </div>
+
+      <div class="google-login">
+        <button class="google-btn" id="googleLogin">
+          <i class="fa-brands fa-google"></i> Entrar com Google
+        </button>
+      </div>
+
+      <div class="login-footer">
+        <p>Não tem uma conta?
+          <a href="#" onclick="irParaCadastro()">Cadastre-se</a>
+        </p>
+        <a href="index.html"><i class="fa-solid fa-arrow-left"></i> Voltar ao site</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
