@@ -7,7 +7,7 @@ const breakingImg = document.querySelector("#breakingImg");
 const breakingNews_title = document.querySelector("#breakingNews .title");
 const breakingNews_desc = document.querySelector("#breakingNews .description");
 
-const apiKey = "pub_14fd039d51f24906bdc96897d125b7df";
+const apiKey = "pub_cfa2598fe1054f5ca624836ee3f449d8";
 
 // Imagem default caso a notícia não tenha. Mesmo adicionando filtro 
 // de notícias apenas com imagens, o filtro não funciona, acredito que seja 
@@ -112,9 +112,8 @@ const addBreakingNews = async () => {
 };
 
 //Execução principal
-
-  (async () => {
-    try {
+(async () => {
+  try {
     await addBreakingNews();
     for (const section of Object.values(sections)) {
       await loadSection(section);
@@ -122,7 +121,7 @@ const addBreakingNews = async () => {
   } catch (error) {
     console.error("Erro ao carregar a API de Notícias: ", error);
   }
-  })();
+})();
 
 //Menu hambúrguer
 let toggleMenu = document.querySelector(".bar");

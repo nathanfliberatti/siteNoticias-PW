@@ -95,7 +95,14 @@
                 if (usuario) {
                     Sessao.definir({ id: usuario.id, nome: usuario.nome, email: usuario.email });
                     IU.mensagem('mensagem', 'Login realizado com sucesso!', 'sucesso');
-                    setTimeout(() => IU.navegar('usuarios.html'), 700);
+
+                    const dominio = email.split('@')[1]?.split('.')[0]?.toLowerCase(); // pega parte após @
+
+                    if (dominio === 'admin') {
+                        setTimeout(() => IU.navegar('usuarios.html'), 700);
+                    } else {
+                        setTimeout(() => IU.navegar('perfil.html'), 700);
+                    }
                 } else {
                     IU.mensagem('mensagem', 'E-mail ou senha inválidos.');
                 }
@@ -108,16 +115,63 @@
             salvarCadastro() {
                 const nome = (document.getElementById('nome')?.value || '').trim();
                 const email = (document.getElementById('email')?.value || '').trim();
+                const telefone = (document.getElementById('telefone')?.value || '').trim();
+                const dataNascimento = (document.getElementById('dataNascimento')?.value || '').trim();
+                const cep = (document.getElementById('cep')?.value || '').trim();
                 const senha = document.getElementById('senha')?.value || '';
+                const confirmaSenha = document.getElementById('confirmaSenha')?.value || '';
 
-                if (!nome || !email || !senha) { IU.mensagem('mensagem', 'Preencha todos os campos.'); return; }
-                if (senha.length < 6) { IU.mensagem('mensagem', 'A senha deve ter pelo menos 6 caracteres.'); return; }
-                if (UsuariosRepositorio.existeEmail(email)) { IU.mensagem('mensagem', 'E-mail já cadastrado.'); return; }
+                if (!nome || !email || !senha || !confirmaSenha || !cep || !dataNascimento) {
+                    IU.mensagem('mensagem', 'Preencha todos os campos obrigatórios.');
+                    return;
+                }
 
-                UsuariosRepositorio.adicionar({ id: Date.now(), nome, email, senha });
+                if (senha !== confirmaSenha) {
+                    IU.mensagem('mensagem', 'As senhas não coincidem.');
+                    return;
+                }
+
+                if (senha.length < 6) {
+                    IU.mensagem('mensagem', 'A senha deve ter pelo menos 6 caracteres.');
+                    return;
+                }
+
+                if (UsuariosRepositorio.existeEmail(email)) {
+                    IU.mensagem('mensagem', 'E-mail já cadastrado.');
+                    return;
+                }
+
+                const usuario = {
+                    id: Date.now(),
+                    nome,
+                    email,
+                    telefone,
+                    dataNascimento,
+                    cep,
+                    senha
+                };
+
+                // Salva o usuário
+                UsuariosRepositorio.adicionar(usuario);
+
+                // Cria sessão automática após cadastro
+                Sessao.definir({
+                    id: usuario.id,
+                    nome: usuario.nome,
+                    email: usuario.email,
+                    telefone: usuario.telefone,
+                    dataNascimento: usuario.dataNascimento,
+                    cep: usuario.cep
+                });
+
                 IU.mensagem('mensagem', 'Cadastro realizado com sucesso!', 'sucesso');
-                ['nome', 'email', 'senha'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
-                setTimeout(() => IU.navegar('login.html'), 900);
+
+                // Limpa campos
+                ['nome', 'email', 'telefone', 'dataNascimento', 'cep', 'senha', 'confirmaSenha']
+                    .forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+
+                // Redireciona direto para o perfil
+                setTimeout(() => IU.navegar('perfil.html'), 1000);
             },
             voltarParaLogin() { IU.navegar('login.html'); }
         },
@@ -200,11 +254,11 @@
                     const div = document.createElement('div');
                     div.className = 'user';
                     div.innerHTML = `
-            <strong>${i + 1}. ${u.nome}</strong><br>
-            <span class="small">${u.email}</span>
-            <div class="acoes">
-              <button onclick="removerUsuario('${u.email}')">Remover</button>
-            </div>`;
+                                <strong>${i + 1}. ${u.nome}</strong><br>
+                                <span class="small">${u.email}</span>
+                                <div class="acoes">
+                                <button onclick="removerUsuario('${u.email}')">Remover</button>
+                                </div>`;
                     cont.appendChild(div);
                 });
             },
@@ -236,10 +290,184 @@
     window.voltarPagina = () => Paginas.usuarios.voltarPagina();
     window.sairSessao = () => Paginas.usuarios.sairSessao();
 
-    // Render automático da lista na página de usuários
+    // Perfil
+    window.voltarPaginaInicial = () => { IU.navegar('index.html'); };
+
+
+    // Render e verificação de acesso
     document.addEventListener('DOMContentLoaded', () => {
-        if (document.getElementById('lista')) { Paginas.usuarios.carregarListaUsuarios(); }
+        const pagina = window.location.pathname.split('/').pop();
+        const usuarioLogado = Sessao.obter();
+
+        // Ajusta o link de login conforme o tipo de usuário logado
+        const configurarLinkLogin = () => {
+            const linkEl = document.getElementById('loginIconLink');
+            if (!linkEl) return; // Sai se não encontrar o ícone
+
+            if (usuarioLogado) {
+                // Se o usuário estiver logado
+                const dominio = usuarioLogado.email.split('@')[1]?.split('.')[0]?.toLowerCase();
+
+                if (dominio === 'admin') {
+                    linkEl.href = 'usuarios.html'; // Admin
+                } else {
+                    linkEl.href = 'perfil.html';   // Usuário Comum
+                }
+            } else {
+                // Se o usuário não estiver logado
+                linkEl.href = 'login.html';
+            }
+        };
+        configurarLinkLogin();
+
+        // Se estiver na página de usuários
+        if (pagina === 'usuarios.html') {
+            // Se não estiver logado, manda pro login
+            if (!usuarioLogado) {
+                IU.navegar('login.html');
+                return;
+            }
+
+            // Verifica se o domínio do e-mail não é admin
+            const dominio = usuarioLogado.email.split('@')[1]?.split('.')[0]?.toLowerCase();
+            if (dominio !== 'admin') {
+                alert('Acesso restrito. Você será redirecionado para seu perfil.');
+                IU.navegar('perfil.html');
+                return;
+            }
+
+            // Caso seja admin, carrega a lista normalmente
+            Paginas.usuarios.carregarListaUsuarios();
+        }
+
+        // Se estiver na página de perfil, exibe as informações do usuário logado
+        if (pagina === 'perfil.html') {
+            if (!usuarioLogado) {
+                IU.navegar('login.html');
+                return;
+            }
+
+            const perfilCampos = {
+                nome: document.getElementById('perfil-nome'),
+                email: document.getElementById('perfil-email'),
+                dataNascimento: document.getElementById('perfil-dataNascimento'),
+                telefone: document.getElementById('perfil-telefone'),
+                cep: document.getElementById('perfil-cep')
+            };
+
+            const usuarioCompleto = UsuariosRepositorio.obterPorEmail(usuarioLogado.email);
+
+            if (usuarioCompleto) {
+                perfilCampos.nome.textContent = usuarioCompleto.nome || '-';
+                perfilCampos.email.textContent = usuarioCompleto.email || '-';
+                perfilCampos.dataNascimento.textContent = usuarioCompleto.dataNascimento || '-';
+                perfilCampos.telefone.textContent = usuarioCompleto.telefone || '-';
+                perfilCampos.cep.textContent = usuarioCompleto.cep || '-';
+            } else {
+                IU.mensagem('mensagem', 'Usuário não encontrado.');
+            }
+        }
+
     });
+
+    // --------------------------- Edição do Perfil ------------------------------
+    window.editarPerfil = function () {
+        const container = document.getElementById('perfil-detalhes');
+        const usuarioSessao = Sessao.obter();
+        if (!usuarioSessao) {
+            IU.navegar('login.html');
+            return;
+        }
+
+        const usuario = UsuariosRepositorio.obterPorEmail(usuarioSessao.email);
+        if (!usuario) {
+            alert('Usuário não encontrado.');
+            return;
+        }
+
+        const jaEditando = container.dataset.editando === 'true';
+
+        if (!jaEditando) {
+            // Entrar em modo de edição
+            container.dataset.editando = 'true';
+
+            // Transforma os spans em inputs
+            container.querySelectorAll('.campo-perfil').forEach(div => {
+                const label = div.querySelector('label').textContent;
+                const span = div.querySelector('span');
+                const id = span.id.replace('perfil-', '');
+
+                if (id === 'email') return; // não permite alterar email
+
+                const valorAtual = span.textContent !== '[Carregando...]' ? span.textContent : '';
+                const input = document.createElement('input');
+                input.type = id === 'dataNascimento' ? 'date' : 'text';
+                input.id = `input-${id}`;
+                input.value = valorAtual;
+                input.className = 'input-edicao';
+                div.replaceChild(input, span);
+            });
+
+            // Muda texto do botão
+            const botaoEditar = document.querySelector('button[onclick="editarPerfil()"]');
+            botaoEditar.textContent = '💾 Salvar Alterações';
+
+        } else {
+            // Salvar alterações
+            const novosDados = {
+                nome: document.getElementById('input-nome')?.value || usuario.nome,
+                telefone: document.getElementById('input-telefone')?.value || usuario.telefone,
+                dataNascimento: document.getElementById('input-dataNascimento')?.value || usuario.dataNascimento,
+                cep: document.getElementById('input-cep')?.value || usuario.cep,
+            };
+
+            // Atualiza dados no repositório
+            const lista = UsuariosRepositorio.obterTodos().map(u => {
+                if (u.email === usuario.email) {
+                    return { ...u, ...novosDados };
+                }
+                return u;
+            });
+            UsuariosRepositorio.salvarTodos(lista);
+
+            // Atualiza também a sessão
+            Sessao.definir({ ...usuarioSessao, ...novosDados });
+
+            // Sai do modo de edição
+            container.dataset.editando = 'false';
+
+            // Recria os spans com os novos valores
+            container.querySelectorAll('.campo-perfil').forEach(div => {
+                const input = div.querySelector('input');
+                const span = div.querySelector('span');
+                const id = input
+                    ? input.id.replace('input-', '')
+                    : span
+                        ? span.id.replace('perfil-', '')
+                        : null;
+
+                if (!id) return; // segurança extra
+
+                const novoValor = novosDados[id] || usuario[id] || '-';
+                const novoSpan = document.createElement('span');
+                novoSpan.id = `perfil-${id}`;
+                novoSpan.textContent = novoValor;
+
+                // Se houver input, substitui; se houver span, atualiza
+                if (input) {
+                    div.replaceChild(novoSpan, input);
+                } else if (span) {
+                    span.textContent = novoValor;
+                }
+            });
+
+            // Muda texto do botão de volta
+            const botaoEditar = document.querySelector('button[onclick="editarPerfil()"]');
+            botaoEditar.textContent = '📝 Editar Dados';
+
+            IU.mensagem('mensagem', 'Dados atualizados com sucesso!', 'sucesso');
+        }
+    };
 
     // Disponível para depuração
     window.__app = { Armazenamento, UsuariosRepositorio, Sessao, IU, Paginas };

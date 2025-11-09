@@ -339,7 +339,7 @@ nav div.loginIcon {
     width: max-content;
 }
 
-.footer .box .categories div a{
+.footer .box .categories div a {
     text-decoration: none;
     color: #000;
 }
@@ -485,6 +485,10 @@ nav div.loginIcon {
         right: 50px;
     }
 
+    nav div.loginIcon {
+        margin-right: -35px;
+    }
+
     nav ul {
         padding: 30px 10px 10px;
     }
@@ -554,6 +558,7 @@ nav div.loginIcon {
         opacity: 0;
         transform: translateY(25px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -633,49 +638,49 @@ nav div.loginIcon {
 
 /* ===== LINK DE RECUPERAÇÃO DE SENHA E LOGIN GOOGLE ===== */
 .recovery-link {
-  text-align: center;
-  margin-top: 10px;
+    text-align: center;
+    margin-top: 10px;
 }
 
 .recovery-link a {
-  color: rgb(39, 39, 39);
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 600;
-  transition: color 0.3s ease;
+    color: rgb(39, 39, 39);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: color 0.3s ease;
 }
 
 .recovery-link a:hover {
-  text-decoration: underline;
-  color: #555555;
+    text-decoration: underline;
+    color: #555555;
 }
 
 .google-login {
-  text-align: center;
-  margin: 15px 0;
+    text-align: center;
+    margin: 15px 0;
 }
 
 .google-btn {
-  width: 100%;
-  border: none;
-  border-radius: 8px;
-  background-color: #ffffff;
-  color: #000000;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  padding: 10px;
-  border: 1px solid #ccc;
-  transition: all 0.3s ease;
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #ccc;
+    transition: all 0.3s ease;
 }
 
 .google-btn i {
-  margin-right: 8px;
-  color: #db4437;
+    margin-right: 8px;
+    color: #db4437;
 }
 
 .google-btn:hover {
-  background-color: #f2f2f2;
+    background-color: #f2f2f2;
 }
 
 
@@ -683,96 +688,99 @@ nav div.loginIcon {
 
 /*Utilitários*/
 .hidden {
-  display: none;
+    display: none;
 }
+
 .msg {
-  margin-top: 10px;
-  font-size: 14px;
-  display: none;
+    margin-top: 10px;
+    font-size: 14px;
+    display: none;
 }
+
 .msg.erro {
-  color: #d93025;
-  display: block;
+    color: #d93025;
+    display: block;
 }
+
 .msg.sucesso {
-  color: #188038;
-  display: block;
+    color: #188038;
+    display: block;
 }
 
 /*Redefinição da senha*/
 .reset-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #f7f7f7;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f7f7f7;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #000;
 }
 
 .reset-container {
-  background-color: #ffffff;
-  padding: 30px 40px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 380px;
-  text-align: center;
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 380px;
+    text-align: center;
 }
 
 .reset-container h2 {
-  margin-bottom: 10px;
-  font-size: 24px;
-  font-weight: 700;
-  color: #222;
+    margin-bottom: 10px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #222;
 }
 
 .reset-container p {
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 20px;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
 }
 
 .reset-container form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
 .reset-container input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 14px;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
 }
 
 .reset-container button {
-  width: 100%;
-  padding: 10px;
-  background-color: #222;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 15px;
-  transition: background-color 0.2s ease;
+    width: 100%;
+    padding: 10px;
+    background-color: #222;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background-color 0.2s ease;
 }
 
 .reset-container button:hover {
-  background-color: #444;
+    background-color: #444;
 }
 
 #resetFields {
-  width: 100%;
-  margin-top: 10px;
+    width: 100%;
+    margin-top: 10px;
 }
 
 #resetMessage {
-  margin-top: 15px;
-  font-size: 14px;
-  font-weight: 500;
+    margin-top: 15px;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 
@@ -804,6 +812,7 @@ nav div.loginIcon {
         opacity: 0;
         transform: translateY(25px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -888,94 +897,202 @@ nav div.loginIcon {
 
 /* ===== TELA DE USUÁRIOS ===== */
 .usuarios-page {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  background-color: #f7f7f7;
-  min-height: 100vh;
-  padding: 40px;
-  font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: #f7f7f7;
+    min-height: 100vh;
+    padding: 40px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .usuarios-container {
-  background-color: #fff;
-  width: 100%;
-  max-width: 700px;
-  padding: 30px 40px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    background-color: #fff;
+    width: 100%;
+    max-width: 700px;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .usuarios-container h1 {
-  font-size: 28px;
-  margin-bottom: 10px;
-  color: #222;
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: #222;
 }
 
 .usuarios-container p {
-  color: #555;
-  font-size: 15px;
+    color: #555;
+    font-size: 15px;
 }
 
 .usuarios-acoes {
-  margin: 20px 0;
-  display: flex;
-  gap: 10px;
+    margin: 20px 0;
+    display: flex;
+    gap: 10px;
 }
 
 .usuarios-acoes button {
-  padding: 8px 15px;
-  border: none;
-  background-color: #222;
-  color: #fff;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.2s ease;
+    padding: 8px 15px;
+    border: none;
+    background-color: #222;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s ease;
 }
 
 .usuarios-acoes button:hover {
-  background-color: #444;
+    background-color: #444;
 }
 
 .vazio {
-  text-align: center;
-  padding: 20px;
-  color: #777;
-  font-style: italic;
+    text-align: center;
+    padding: 20px;
+    color: #777;
+    font-style: italic;
 }
 
 .usuarios-lista .user {
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 12px;
-  margin-bottom: 10px;
-  background: #fafafa;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 10px;
+    background: #fafafa;
 }
 
 .usuarios-lista .user strong {
-  font-size: 16px;
-  color: #222;
+    font-size: 16px;
+    color: #222;
 }
 
 .usuarios-lista .user .small {
-  color: #555;
-  font-size: 14px;
+    color: #555;
+    font-size: 14px;
 }
 
 .usuarios-lista .acoes {
-  margin-top: 10px;
+    margin-top: 10px;
 }
 
 .usuarios-lista .acoes button {
-  background-color: #c62828;
-  border: none;
-  color: #fff;
-  border-radius: 4px;
-  padding: 5px 10px;
-  cursor: pointer;
-  font-size: 13px;
+    background-color: #c62828;
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 13px;
 }
 
 .usuarios-lista .acoes button:hover {
-  background-color: #e53935;
+    background-color: #e53935;
+}
+
+
+/* ===== TELA DE PERFIL ===== */
+.perfil-page {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Alinha no topo, mas mantém o card centralizado horizontalmente */
+    padding: 50px 20px;
+}
+
+.perfil-container {
+    width: 450px; /* Um pouco mais largo que o card de Login/Cadastro para acomodar dados */
+    max-width: 90%;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px 25px;
+    opacity: 0;
+    transform: translateY(25px);
+    /* Reutiliza a animação de entrada do Cadastro/Login */
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.perfil-container h1 {
+    text-align: center;
+    font-size: 26px;
+    margin-bottom: 10px;
+    color: #000000;
+}
+
+.perfil-container p {
+    text-align: center;
+    color: #555555;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+/* Estilo dos campos de exibição de dados */
+.perfil-detalhes {
+    margin-bottom: 30px;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #fafafa;
+}
+
+.campo-perfil {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px dashed #cccccc;
+}
+
+.campo-perfil:last-child {
+    border-bottom: none;
+}
+
+.campo-perfil label {
+    font-weight: bold;
+    color: #333333;
+    font-size: 15px;
+    flex-shrink: 0; /* Impede o label de encolher */
+    margin-right: 15px;
+}
+
+.campo-perfil span {
+    font-size: 15px;
+    color: rgb(39, 39, 39);
+    text-align: right;
+    word-break: break-all; /* Garante que emails longos não quebrem o layout */
+}
+
+/* Estilo das Ações (Botões) */
+.perfil-acoes {
+    display: flex;
+    flex-wrap: wrap; /* Permite quebrar linha em telas menores */
+    gap: 10px;
+    justify-content: center;
+}
+
+.perfil-acoes button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: rgb(39, 39, 39);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    flex-grow: 1; /* Permite que os botões ocupem o espaço disponível */
+    max-width: 48%; /* Limita o tamanho em telas maiores */
+}
+
+.perfil-acoes button:hover {
+    background-color: #555555;
+    transform: translateY(-1px);
+}
+
+/* Responsividade básica para botões em telas muito pequenas */
+@media (max-width: 450px) {
+    .perfil-acoes button {
+        max-width: 100%; /* Ocupa a largura total em telas muito pequenas */
+    }
 }

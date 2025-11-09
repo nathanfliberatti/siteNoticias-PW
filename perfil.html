@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.css"
+        xintegrity="sha512-NhLySQDkiKSKnT+R795uaHWRQ7D3VuIvgeOLCK8cWq4w5fq4sWF90gj8eURpTqn/f1mFzqClpOz8JPlgVTLfFw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Meu Perfil | Atualiza+</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body class="perfil-page">
+    <div class="perfil-container">
+        <h1><i class="fa-solid fa-address-card"></i> Meu Perfil</h1>
+        <p>Visualize suas informações de cadastro e gerencie sua conta.</p>
+
+        <!-- ÁREA ONDE O JAVASCRIPT INJETARÁ OS DADOS DO USUÁRIO -->
+        <div id="perfil-detalhes" class="perfil-detalhes">
+
+            <div class="campo-perfil">
+                <label>Nome Completo:</label>
+                <span id="perfil-nome">[Carregando...]</span>
+            </div>
+
+            <div class="campo-perfil">
+                <label>E-mail:</label>
+                <span id="perfil-email">[Carregando...]</span>
+            </div>
+
+            <div class="campo-perfil">
+                <label>Data de Nascimento:</label>
+                <span id="perfil-dataNascimento">[Carregando...]</span>
+            </div>
+
+            <div class="campo-perfil">
+                <label>Telefone:</label>
+                <span id="perfil-telefone">[Carregando...]</span>
+            </div>
+
+            <div class="campo-perfil">
+                <label>CEP:</label>
+                <span id="perfil-cep">[Carregando...]</span>
+            </div>
+        </div>
+
+        <p id="mensagem" class="msg"></p>
+
+        <div class="perfil-acoes">
+            <button onclick="editarPerfil()">📝 Editar Dados</button>
+            <button onclick="irParaRedefinicao()">🔒 Alterar Senha</button>
+            <button onclick="voltarPaginaInicial()">⬅ Voltar</button>
+            <button onclick="sairSessao()">Sair da Sessão</button>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+
+</html>
