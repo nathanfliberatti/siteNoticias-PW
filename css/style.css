@@ -1107,8 +1107,6 @@ nav div.loginIcon {
     font-weight: bold;
     color: #333333;
     font-size: 15px;
-    flex-shrink: 0;
-    /* Impede o label de encolher */
     margin-right: 15px;
 }
 
