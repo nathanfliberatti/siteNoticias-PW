@@ -111,7 +111,7 @@ const addBreakingNews = async () => {
   breakingNews_desc.innerHTML = description || "Sem descrição disponível.";
 };
 
-//Execução principal
+// Execução principal
 (async () => {
   try {
     await addBreakingNews();
@@ -123,7 +123,7 @@ const addBreakingNews = async () => {
   }
 })();
 
-//Menu hambúrguer
+// Menu hambúrguer
 let toggleMenu = document.querySelector(".bar");
 let menu = document.querySelector("nav ul");
 
@@ -133,3 +133,21 @@ const toggle = (e) => {
 }
 
 toggleMenu.addEventListener('click', toggle);
+
+// Política de Cookies
+document.addEventListener("DOMContentLoaded", () => {
+  const cookieModal = document.getElementById("cookieModal");
+  const acceptBtn = document.getElementById("acceptCookies");
+
+  //Verifica se o usuário já aceitou
+  const accepted = localStorage.getItem("cookiesAccepted");
+
+  if (!accepted) {
+    cookieModal.style.display = "flex";
+  }
+
+  acceptBtn.addEventListener("click", () => {
+    localStorage.setItem("cookiesAccepted", "true");
+    cookieModal.style.display = "none";
+  });
+});

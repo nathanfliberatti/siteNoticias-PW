@@ -377,6 +377,59 @@ nav div.loginIcon {
     text-align: center;
 }
 
+/* ===== MODAL POLÍTICA DE COOKIES ===== */
+.cookie-modal {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    /* background: rgba(20, 20, 20, 0.9); */
+    color: #fff;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 9999;
+}
+
+.cookie-content {
+    background: #333;
+    border-radius: 8px;
+    padding: 25px 30px;
+    width: 1100px;
+    text-align: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.cookie-content h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.cookie-content p {
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+.cookie-content a {
+    color: #4da6ff;
+    text-decoration: underline;
+}
+
+.cookie-content button {
+    background-color: #4da6ff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.cookie-content button:hover {
+    background-color: #2f82cc;
+}
+
 /* ===== RESPONSIVIDADE ===== */
 @media (max-width:1024px) {
 
@@ -997,12 +1050,14 @@ nav div.loginIcon {
     background-color: #f5f5f5;
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Alinha no topo, mas mantém o card centralizado horizontalmente */
+    align-items: flex-start;
+    /* Alinha no topo, mas mantém o card centralizado horizontalmente */
     padding: 50px 20px;
 }
 
 .perfil-container {
-    width: 450px; /* Um pouco mais largo que o card de Login/Cadastro para acomodar dados */
+    width: 450px;
+    /* Um pouco mais largo que o card de Login/Cadastro para acomodar dados */
     max-width: 90%;
     background-color: #ffffff;
     border-radius: 10px;
@@ -1052,7 +1107,8 @@ nav div.loginIcon {
     font-weight: bold;
     color: #333333;
     font-size: 15px;
-    flex-shrink: 0; /* Impede o label de encolher */
+    flex-shrink: 0;
+    /* Impede o label de encolher */
     margin-right: 15px;
 }
 
@@ -1060,13 +1116,15 @@ nav div.loginIcon {
     font-size: 15px;
     color: rgb(39, 39, 39);
     text-align: right;
-    word-break: break-all; /* Garante que emails longos não quebrem o layout */
+    word-break: break-all;
+    /* Garante que emails longos não quebrem o layout */
 }
 
 /* Estilo das Ações (Botões) */
 .perfil-acoes {
     display: flex;
-    flex-wrap: wrap; /* Permite quebrar linha em telas menores */
+    flex-wrap: wrap;
+    /* Permite quebrar linha em telas menores */
     gap: 10px;
     justify-content: center;
 }
@@ -1081,8 +1139,10 @@ nav div.loginIcon {
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    flex-grow: 1; /* Permite que os botões ocupem o espaço disponível */
-    max-width: 48%; /* Limita o tamanho em telas maiores */
+    flex-grow: 1;
+    /* Permite que os botões ocupem o espaço disponível */
+    max-width: 48%;
+    /* Limita o tamanho em telas maiores */
 }
 
 .perfil-acoes button:hover {
@@ -1093,6 +1153,7 @@ nav div.loginIcon {
 /* Responsividade básica para botões em telas muito pequenas */
 @media (max-width: 450px) {
     .perfil-acoes button {
-        max-width: 100%; /* Ocupa a largura total em telas muito pequenas */
+        max-width: 100%;
+        /* Ocupa a largura total em telas muito pequenas */
     }
 }
