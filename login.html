@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.css"
-        integrity="sha512-NhLySQDkiKSKnT+R795uaHWRQ7D3VuIvgeOLCK8cWq4w5fq4sWF90gj8eURpTqn/f1mFzqClpOz8JPlgVTLfFw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    integrity="sha512-NhLySQDkiKSKnT+R795uaHWRQ7D3VuIvgeOLCK8cWq4w5fq4sWF90gj8eURpTqn/f1mFzqClpOz8JPlgVTLfFw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <title>Tela de Login | Atualiza+</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -34,7 +35,7 @@
       </div>
 
       <div class="google-login">
-        <button class="google-btn" id="googleLogin">
+        <button class="google-btn" id="googleLoginBtn">
           <i class="fa-brands fa-google"></i> Entrar com Google
         </button>
       </div>
@@ -48,6 +49,8 @@
     </div>
   </div>
 
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

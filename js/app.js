@@ -269,6 +269,56 @@
         }
     };
 
+    // --------------------------- Login com Google -----------------------------
+    window.addEventListener('load', function () {
+        const googleDiv = document.getElementById('googleLoginBtn');
+        if (!googleDiv) return; // só executa na página de login
+
+        google.accounts.id.initialize({
+            client_id: "737705245330-rmi811nld99d5vinvgisem7fnt5iqne8.apps.googleusercontent.com",
+            callback: handleCredentialResponse
+        });
+
+        google.accounts.id.renderButton(
+            googleDiv,
+            { theme: "outline", size: "large", width: "100%" }
+        );
+    });
+
+    function handleCredentialResponse(response) {
+        try {
+            const data = jwt_decode(response.credential);
+            console.log("Usuário logado com Google:", data);
+
+            const usuario = {
+                id: data.sub,
+                nome: data.name,
+                email: data.email,
+                telefone: data.phone_number || '',
+                dataNascimento: '',
+                cep: ''
+            };
+
+            // Cria ou atualiza o usuário no repositório local
+            if (!UsuariosRepositorio.existeEmail(usuario.email)) {
+                UsuariosRepositorio.adicionar({ ...usuario, senha: null });
+            }
+
+            // Define a sessão com os dados do Google
+            Sessao.definir({ id: usuario.id, nome: usuario.nome, email: usuario.email });
+
+            IU.mensagem('mensagem', `Bem-vindo, ${usuario.nome}!`, 'sucesso');
+
+            // Redireciona após login
+            setTimeout(() => IU.navegar('perfil.html'), 1000);
+
+        } catch (e) {
+            console.error("Erro ao processar login do Google:", e);
+            IU.mensagem('mensagem', 'Erro ao autenticar com o Google.');
+        }
+    }
+
+
     // --------------------------- Expor para onclick ------------------------
     // Login
     window.entrar = () => Paginas.login.entrar();
