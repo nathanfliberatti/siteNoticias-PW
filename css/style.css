@@ -48,6 +48,11 @@ body {
     cursor: pointer;
 }
 
+.logo a {
+    text-decoration: none;
+    color: inherit;
+}
+
 nav {
     display: flex;
 }

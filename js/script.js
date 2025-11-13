@@ -7,9 +7,9 @@ const breakingImg = document.querySelector("#breakingImg");
 const breakingNews_title = document.querySelector("#breakingNews .title");
 const breakingNews_desc = document.querySelector("#breakingNews .description");
 
-const apiKey = "pub_cfa2598fe1054f5ca624836ee3f449d8";
-// const apiKey = "pub_1f0d40e9f5a747e5a3013f7497611093";
+const apiKey = "pub_abd5f10acace4a05a2a685db4053f650";
 // const apiKey = "pub_277d817ff9414b80b6a7bad809f4fa96";
+// const apiKey = "pub_1f0d40e9f5a747e5a3013f7497611093";
 
 // Imagem default caso a notícia não tenha. Mesmo adicionando filtro 
 // de notícias apenas com imagens, o filtro não funciona, acredito que seja 
