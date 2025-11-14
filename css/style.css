@@ -1047,6 +1047,12 @@ nav div.loginIcon {
     background-color: #e53935;
 }
 
+@media (max-width:400px) {
+    .usuarios-page {
+        padding: 20px;
+    }
+}
+
 
 /* ===== TELA DE PERFIL ===== */
 .perfil-page {
