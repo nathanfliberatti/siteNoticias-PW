@@ -435,6 +435,53 @@ nav div.loginIcon {
     background-color: #2f82cc;
 }
 
+/* ===== MODAL POLÍTICA DE PRIVACIDADE ===== */
+.privacy-policy-banner {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+.privacy-policy-content {
+    background: #fff;
+    padding: 30px;
+    max-width: 600px;
+    border-radius: 10px;
+    text-align: left;
+    animation: fadeIn .3s ease;
+}
+
+.btn-close-policy {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #333;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
 /* ===== RESPONSIVIDADE ===== */
 @media (max-width:1024px) {
 
@@ -517,6 +564,23 @@ nav div.loginIcon {
     .footer .copyrights {
         font-size: 15px;
     }
+
+    .privacy-policy-content {
+        max-width: 60%;
+        padding: 25px;
+    }
+
+    .privacy-policy-content h2 {
+        font-size: 22px;
+    }
+
+    .privacy-policy-content p {
+        font-size: 15px;
+    }
+
+    .btn-close-policy {
+        padding: 10px 18px;
+    }
 }
 
 @media (max-width:600px) {
@@ -534,6 +598,24 @@ nav div.loginIcon {
 
     .page2 .news .newsBox .newsCard {
         width: calc(100% / 2 - 20px);
+    }
+
+    .privacy-policy-content {
+        padding: 20px;
+        max-width: 100%;
+    }
+
+    .privacy-policy-content h2 {
+        font-size: 20px;
+    }
+
+    .privacy-policy-content p {
+        font-size: 14px;
+    }
+
+    .btn-close-policy {
+        width: 100%;
+        padding: 12px;
     }
 }
 
@@ -583,6 +665,28 @@ nav div.loginIcon {
 
     .page2 .news .newsBox .newsCard .text .title a p {
         font-size: 16px;
+    }
+
+     .privacy-policy-content {
+        max-width: 80%;
+        padding: 18px;
+        border-radius: 8px;
+    }
+
+    .privacy-policy-content h2 {
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .privacy-policy-content p {
+        font-size: 14px;
+        line-height: 1.4;
+        text-align: justify;
+    }
+
+    .btn-close-policy {
+        padding: 12px;
+        font-size: 15px;
     }
 }
 
@@ -835,10 +939,34 @@ nav div.loginIcon {
     margin-top: 10px;
 }
 
+#resetFields input {
+    margin-bottom: 5px;
+}
+
+#resetFields button {
+    margin-top: 5px;
+}
+
 #resetMessage {
     margin-top: 15px;
     font-size: 14px;
     font-weight: 500;
+}
+
+.reset-footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.reset-footer a {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.reset-footer a:hover {
+    text-decoration: underline;
 }
 
 

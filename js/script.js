@@ -8,8 +8,6 @@ const breakingNews_title = document.querySelector("#breakingNews .title");
 const breakingNews_desc = document.querySelector("#breakingNews .description");
 
 const apiKey = "pub_abd5f10acace4a05a2a685db4053f650";
-// const apiKey = "pub_277d817ff9414b80b6a7bad809f4fa96";
-// const apiKey = "pub_1f0d40e9f5a747e5a3013f7497611093";
 
 // Imagem default caso a notícia não tenha. Mesmo adicionando filtro 
 // de notícias apenas com imagens, o filtro não funciona, acredito que seja 
@@ -152,4 +150,21 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("cookiesAccepted", "true");
     cookieModal.style.display = "none";
   });
+});
+
+// Abrir modal de Política de Privacidade
+document.getElementById("openPrivacyPolicy").addEventListener("click", function (e) {
+    e.preventDefault();
+    document.getElementById("privacyPolicyBanner").style.display = "flex";
+});
+
+// Fechar modal de Política de Privacidade
+document.getElementById("closePrivacyPolicy").addEventListener("click", function () {
+    document.getElementById("privacyPolicyBanner").style.display = "none";
+});
+// Fechar modal de Política de Privacidade ao clicar fora do conteúdo
+document.getElementById("privacyPolicyBanner").addEventListener("click", function (e) {
+    if (e.target === this) {
+        this.style.display = "none";
+    }
 });
