@@ -97,7 +97,7 @@ Página de autenticação.
 
     ```javascript
     google.accounts.id.initialize({
-        client_id: "737705245330-rmi811nld99d5vinvgisem7fnt5iqne8.apps.googleusercontent.com",
+        client_id: "SEU ID AQUI",
         callback: handleCredentialResponse
     });
     ```
