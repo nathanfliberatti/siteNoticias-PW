@@ -170,8 +170,15 @@
                 ['nome', 'email', 'telefone', 'dataNascimento', 'cep', 'senha', 'confirmaSenha']
                     .forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
 
-                // Redireciona direto para o perfil
-                setTimeout(() => IU.navegar('perfil.html'), 1000);
+                
+                // Redireciona direto para o perfil ou para tela de admin
+                const dominio = email.split('@')[1]?.split('.')[0]?.toLowerCase();
+
+                if (dominio === 'admin') {
+                    setTimeout(() => IU.navegar('usuarios.html'), 700);
+                } else {
+                    setTimeout(() => IU.navegar('perfil.html'), 700);
+                }
             },
             voltarParaLogin() { IU.navegar('login.html'); }
         },
